@@ -17,7 +17,9 @@ go install ./...
 
 ```
 
-## Generating SQL binding objects from files
+## Generating Golang Bindings
+
+Using SQL sample as example we will generate the golang binding objects from `*.sql` files specified in `samples/sql/files/`. *NOTE* this approach applies to all generator actions provided by `togo`.
 
 Ensure `togo` is installed as described above. Then using `samples/sql` as an example;
 
@@ -35,4 +37,4 @@ rm sql_gen.go
 go generate
 ```
 
-The is ensures that the SQL definitions in `files/` are all loaded and converted into SQL bindings, in a new generated file called `sql_gen.go`
+This ensures that the SQL definitions in `files/` are all loaded and converted into SQL bindings, in a new generated file called `sql_gen.go`
