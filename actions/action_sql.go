@@ -1,4 +1,4 @@
-package main
+package actions
 
 import (
 	"os"
@@ -6,8 +6,8 @@ import (
 
 	"github.com/urfave/cli"
 
-	"github.com/bradrydzewski/togo/parser"
-	"github.com/bradrydzewski/togo/template"
+	"github.com/TukioHQ/togo/parser"
+	"github.com/TukioHQ/togo/template"
 )
 
 type sqlParams struct {
@@ -16,7 +16,8 @@ type sqlParams struct {
 	Statements []*parser.Statement
 }
 
-var sqlCommand = cli.Command{
+// SQLCommand generator handler for SQL
+var SQLCommand = cli.Command{
 	Name:   "sql",
 	Usage:  "embed sql statements",
 	Action: sqlAction,

@@ -1,4 +1,4 @@
-package main
+package actions
 
 import (
 	"io/ioutil"
@@ -10,7 +10,7 @@ import (
 	"github.com/bmatcuk/doublestar"
 	"github.com/urfave/cli"
 
-	"github.com/bradrydzewski/togo/template"
+	"github.com/TukioHQ/togo/template"
 )
 
 type (
@@ -31,7 +31,8 @@ type (
 	}
 )
 
-var httpCommand = cli.Command{
+// HTTPCommand is command handler for http generator
+var HTTPCommand = cli.Command{
 	Name:   "http",
 	Usage:  "generate an http filesystem",
 	Action: httpAction,

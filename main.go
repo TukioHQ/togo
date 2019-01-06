@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/TukioHQ/togo/actions"
 	"github.com/urfave/cli"
 )
 
@@ -14,12 +15,12 @@ func main() {
 	app.Version = "1.0.0"
 	app.Author = "bradrydzewski"
 	app.Commands = []cli.Command{
-		ddlCommand,
-		sqlCommand,
-		httpCommand,
-		httptestCommand,
-		tmplCommand,
-		i18nCommand,
+		actions.DDLCommands,
+		actions.SQLCommand,
+		actions.HTTPCommand,
+		actions.HTTPTestCommand,
+		actions.TMPLCommand,
+		actions.I18nCommand,
 	}
 	if err := app.Run(os.Args); err != nil {
 		fmt.Println(err)

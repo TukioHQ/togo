@@ -1,4 +1,4 @@
-package main
+package actions
 
 import (
 	"io/ioutil"
@@ -8,15 +8,18 @@ import (
 
 	"github.com/urfave/cli"
 
-	"github.com/bradrydzewski/togo/template"
+	"github.com/TukioHQ/togo/template"
 )
 
 type (
-	i18nParams struct {
+	tmplParams struct {
+		Encode  bool
 		Package string
-		Files   []*i18nFile
+		Format  string
+		Funcs   string
+		Files   []*tmplFile
 	}
-	i18nFile struct {
+	tmplFile struct {
 		Base string
 		Name string
 		Path string
@@ -25,22 +28,30 @@ type (
 	}
 )
 
-var i18nCommand = cli.Command{
-	Name:   "i18n",
-	Usage:  "embed i18n files",
-	Action: i18nAction,
+// TMPLCommand handler for template generator
+var TMPLCommand = cli.Command{
+	Name:   "tmpl",
+	Usage:  "embed template files",
+	Action: tmplAction,
 	Flags: []cli.Flag{
 		cli.StringFlag{
 			Name:  "package",
-			Value: "i18n",
+			Value: "template",
+		},
+		cli.StringFlag{
+			Name: "func",
 		},
 		cli.StringFlag{
 			Name:  "input",
-			Value: "files/*.all.json",
+			Value: "files/*.tmpl",
 		},
 		cli.StringFlag{
 			Name:  "output",
-			Value: "i18n_gen.go",
+			Value: "template_gen.go",
+		},
+		cli.StringFlag{
+			Name:  "format",
+			Value: "text",
 		},
 		cli.BoolFlag{
 			Name: "encode",
@@ -48,7 +59,7 @@ var i18nCommand = cli.Command{
 	},
 }
 
-func i18nAction(c *cli.Context) error {
+func tmplAction(c *cli.Context) error {
 	pattern := c.Args().First()
 	if pattern == "" {
 		pattern = c.String("input")
@@ -59,8 +70,11 @@ func i18nAction(c *cli.Context) error {
 		return err
 	}
 
-	params := i18nParams{
+	params := tmplParams{
+		Encode:  c.Bool("encode"),
 		Package: c.String("package"),
+		Format:  c.String("format"),
+		Funcs:   c.String("func"),
 	}
 
 	for _, match := range matches {
@@ -68,7 +82,7 @@ func i18nAction(c *cli.Context) error {
 		if ioerr != nil {
 			return ioerr
 		}
-		params.Files = append(params.Files, &i18nFile{
+		params.Files = append(params.Files, &tmplFile{
 			Path: match,
 			Name: filepath.Base(match),
 			Base: strings.TrimSuffix(filepath.Base(match), filepath.Ext(match)),
@@ -86,5 +100,5 @@ func i18nAction(c *cli.Context) error {
 		defer wr.Close()
 	}
 
-	return template.Execute(wr, "i18n.tmpl", params)
+	return template.Execute(wr, "tmpl.tmpl", params)
 }

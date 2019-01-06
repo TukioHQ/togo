@@ -1,4 +1,4 @@
-package main
+package actions
 
 import (
 	"os"
@@ -6,8 +6,8 @@ import (
 
 	"github.com/urfave/cli"
 
-	"github.com/bradrydzewski/togo/parser"
-	"github.com/bradrydzewski/togo/template"
+	"github.com/TukioHQ/togo/parser"
+	"github.com/TukioHQ/togo/template"
 )
 
 type migration struct {
@@ -27,7 +27,8 @@ type migrationParams struct {
 	Logger     logger
 }
 
-var ddlCommand = cli.Command{
+// DDLCommands commandline handler for SQL DDL generator
+var DDLCommands = cli.Command{
 	Name:   "ddl",
 	Usage:  "embed ddl statements",
 	Action: ddlAction,

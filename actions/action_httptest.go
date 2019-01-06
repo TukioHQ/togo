@@ -1,4 +1,4 @@
-package main
+package actions
 
 import (
 	"bufio"
@@ -15,7 +15,7 @@ import (
 	"github.com/bmatcuk/doublestar"
 	"github.com/urfave/cli"
 
-	"github.com/bradrydzewski/togo/template"
+	"github.com/TukioHQ/togo/template"
 )
 
 type (
@@ -33,7 +33,8 @@ type (
 	}
 )
 
-var httptestCommand = cli.Command{
+// HTTPTestCommand command handler for generator
+var HTTPTestCommand = cli.Command{
 	Name:   "httptest",
 	Usage:  "generate httptest server",
 	Action: httptestAction,
