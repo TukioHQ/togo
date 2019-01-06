@@ -1,6 +1,9 @@
 package i18n
 
-import "github.com/nicksnyder/go-i18n/i18n"
+import (
+	"github.com/nicksnyder/go-i18n/v2/i18n"
+	"golang.org/x/text/language"
+)
 
 // list of embedded template files.
 var files = []struct {
@@ -23,8 +26,9 @@ var files = []struct {
 }
 
 func init() {
+	bundle := &i18n.Bundle{DefaultLanguage: language.English}
 	for _, file := range files {
-		i18n.ParseTranslationFileBytes(file.name, []byte(file.data))
+		bundle.ParseMessageFileBytes([]byte(file.data), file.name)
 	}
 }
 
