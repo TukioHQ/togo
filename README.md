@@ -19,7 +19,9 @@ go install ./...
 
 ## Generating Golang Bindings
 
-Using SQL sample as example we will generate the golang binding objects from `*.sql` files specified in `samples/sql/files/`. *NOTE* this approach applies to all generator actions provided by `togo`.
+Using SQL sample as example we will generate the golang binding objects from `*.sql` files specified in `samples/sql/files/`.
+
+**NOTE** this approach applies to all generator actions provided by `togo`.
 
 Ensure `togo` is installed as described above. Then using `samples/sql` as an example;
 
